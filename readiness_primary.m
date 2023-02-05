@@ -1,9 +1,7 @@
 
 %% Setup: Setup workspace and define parameters
 % Define key directories
-dirs.root = 'D:\projectCode\2023-eeg-readiness\';
-dirs.raw_data = 'D:\data\2012_Cmand_EuX\rawData\';
-addpath(genpath(dirs.root));
+dirs = get_dirs_rp('home');
 
 % Load datafiles
 load(fullfile(dirs.root, 'data' ,'bayesianSSRT')); 
@@ -23,11 +21,10 @@ params.alignment.time = params.alignment.alignWin(1):...
 params.eventNames = {'fixate','target','stopSignal','saccade','sacc_end','tone','reward','sec_sacc'};
 
 %% Extract: Convert raw EEG data into trial-by-trial event-related potentials.
-if ~exist(fullfile(dirs.root,'data','EEG_signal.mat'))
-    extract_signal
-else
-    load(fullfile(dirs.root,'data','EEG_signal.mat'))
-end
+
+extract_signal
+
 
 %% Analyse: Get ERP for left/rightward saccades, for lateralized channels.
+
 

@@ -53,5 +53,3 @@ for session = 1:29
     end
     
 end
-
-save(fullfile(dirs.root,'data','EEG_signal.mat'),'EEG_signal','-v7.3')
