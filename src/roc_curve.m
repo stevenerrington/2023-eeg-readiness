@@ -68,8 +68,8 @@
 function ROC_data = roc_curve(class_1, class_2, dispp, dispt)
 
     % Setting default parameters and detecting errors
-    if(nargin<4), dispt = 1;    end
-    if(nargin<3), dispp = 1;    end
+    if(nargin<4), dispt = 0;    end
+    if(nargin<3), dispp = 0;    end
     if(nargin<2), error('Params "class_1" or "class_2" are not indicated.'); end
     class_1 = class_1(:);
     class_2 = class_2(:);
