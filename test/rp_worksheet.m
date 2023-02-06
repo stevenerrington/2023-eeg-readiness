@@ -24,66 +24,7 @@ end
 
 %%
 
-for session = 1:29
-    plot_EEG_left_A(session,:)  = EEG_saccade_left{2}(session,:);
-    plot_EEG_right_A(session,:) = EEG_saccade_right{2}(session,:);
-    
-    plot_EEG_left_B(session,:)  = EEG_saccade_left{3}(session,:);
-    plot_EEG_right_B(session,:) = EEG_saccade_right{3}(session,:);
-    
-    plot_EEG_left_B_nc(session,:)  = EEG_saccade_left_nc{3}(session,:);
-    plot_EEG_right_B_nc(session,:) = EEG_saccade_right_nc{3}(session,:);
-    
-end
 
-
-
-
-%% Figure: Population EEG for left/right target
-
-input_sdf_left_A = num2cell(plot_EEG_left_A, 2);
-input_sdf_right_A = num2cell(plot_EEG_right_A, 2);
-input_sdf_left_B = num2cell(plot_EEG_left_B, 2);
-input_sdf_right_B = num2cell(plot_EEG_right_B, 2);
-
-xlim_input = [-600 200];
-ylim_input = [-10 10];
-timewins.sdf = -999:2000;
-
-labels_value = [repmat({'1_Left'},length(input_sdf_left_A),1);repmat({'2_Right'},length(input_sdf_right_A),1)];
-monkey_label = [repmat(executiveBeh.nhpSessions.monkeyNameLabel,2,1)];
-
-% Produce the figure, collapsed across all monkeys
-RP_A_figure(1,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
-RP_A_figure(1,1).stat_summary();
-RP_A_figure(1,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
-RP_A_figure(1,1).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
-
-RP_A_figure(2,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
-RP_A_figure(2,1).stat_summary();
-RP_A_figure(2,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
-RP_A_figure(2,1).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
-RP_A_figure(2,1).facet_grid([],monkey_label);
-
-RP_A_figure(1,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
-RP_A_figure(1,2).stat_summary();
-RP_A_figure(1,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
-RP_A_figure(1,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
-
-RP_A_figure(2,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
-RP_A_figure(2,2).stat_summary();
-RP_A_figure(2,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
-RP_A_figure(2,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
-RP_A_figure(2,2).facet_grid([],monkey_label);
-
-RP_A_figure_out = figure('Renderer', 'painters', 'Position', [100 100 1500 800]);
-RP_A_figure.draw();
-
-% Once we're done with a page, save it and close it.
-filename = fullfile('D:\projectCode\2023-eeg-readiness','results','pop_figure_rp.pdf');
-set(RP_A_figure_out,'PaperSize',[20 10]); %set the paper size to what you want
-print(RP_A_figure_out,filename,'-dpdf') % then print it
-close(RP_A_figure_out)
 
 
 

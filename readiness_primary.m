@@ -1,5 +1,8 @@
 
 %% Setup: Setup workspace and define parameters
+% Clear workspace and console
+clear all; clc
+
 % Define key directories
 dirs = get_dirs_rp('home');
 
@@ -9,7 +12,7 @@ load(fullfile(dirs.root, 'data' ,'executiveBeh'));
 load(fullfile(dirs.root, 'data' ,'FileNames')); 
 
 % Run parameter scripts
-getColors;
+getColors_rp;
 
 % Setup analysis parameters
 params.ephys.samplingFreq = 1000;
@@ -27,4 +30,5 @@ extract_signal
 
 %% Analyse: Get ERP for left/rightward saccades, for lateralized channels.
 
+describe_rp
 
