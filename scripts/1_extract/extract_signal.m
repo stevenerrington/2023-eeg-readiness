@@ -41,6 +41,11 @@ for session = 1:29
         [~, EEG_signal_saccade] = tidy_signal(inputLFP.(channel), params.ephys, filterFreq,...
             eventTimes, params.alignment);
         
+        % Stop-signal aligned.
+        params.alignment.eventN = 3;
+        [~, EEG_signal_stopSignal] = tidy_signal(inputLFP.(channel), params.ephys, filterFreq,...
+            eventTimes, params.alignment);
+        
         if ismember(session,executiveBeh.nhpSessions.EuSessions) &...
                 ch_index == 2; ch_index = 3;
         elseif ismember(session, executiveBeh.nhpSessions.EuSessions) &...
@@ -49,6 +54,7 @@ for session = 1:29
         
         EEG_signal.target{session,ch_index} = EEG_signal_target;
         EEG_signal.saccade{session,ch_index} = EEG_signal_saccade;
+        EEG_signal.stopSignal{session,ch_index} = EEG_signal_stopSignal;
         
     end
     

@@ -34,3 +34,9 @@ describe_rp_saccade
 describe_rp_target
 describe_windowROC
 describe_temporalROC
+
+%% Analyse: Get ERP for stopping
+
+ ttx_canc_lat = get_canclattrials(executiveBeh);
+
+describe_rp_stopping
