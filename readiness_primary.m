@@ -4,7 +4,7 @@
 clear all; clc
 
 % Define key directories
-dirs = get_dirs_rp('home');
+dirs = get_dirs_rp('mac');
 
 % Load datafiles
 load(fullfile(dirs.root, 'data' ,'bayesianSSRT')); 
@@ -30,5 +30,7 @@ extract_signal
 
 %% Analyse: Get ERP for left/rightward saccades, for lateralized channels.
 
-describe_rp
-
+describe_rp_saccade
+describe_rp_target
+describe_windowROC
+describe_temporalROC

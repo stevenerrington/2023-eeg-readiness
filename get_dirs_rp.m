@@ -3,7 +3,7 @@ function dirs = get_dirs_rp(user)
 switch user
     case 'mac'
         dirs.root = '/Users/stevenerrington/Desktop/Projects/2023-eeg-readiness';
-        dirs.raw_data = '/Users/stevenerrington/Desktop/Projects/2023-eeg-readiness';
+        dirs.raw_data = '/Volumes/Alpha/data/2012_Cmand_EuX/rawData/';
         
     case 'home'
         dirs.root = 'D:\projectCode\2023-eeg-readiness\';
