@@ -10,8 +10,8 @@ for session = 1:29
 
         channel = channel_list{ch_index};
 
-        EEG_target_left{ch_index}(session,:) = nanmean( EEG_signal.target{session,ch_index}(executiveBeh.ttx.GO_Left{session},:));
-        EEG_target_right{ch_index}(session,:) = nanmean( EEG_signal.target{session,ch_index}(executiveBeh.ttx.GO_Right{session},:));
+        EEG_target_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Left{session},:));
+        EEG_target_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Right{session},:));
 
         EEG_saccade_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Left{session},:));
         EEG_saccade_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Right{session},:));
@@ -37,7 +37,7 @@ input_sdf_left_B = num2cell(plot_EEG_left_B, 2);
 input_sdf_right_B = num2cell(plot_EEG_right_B, 2);
 
 xlim_input = [-600 200];
-ylim_input = [-10 20];
+ylim_input = [-0.01 0.02];
 timewins.sdf = -999:2000;
 
 labels_value = [repmat({'1_Left'},length(input_sdf_left_A),1);repmat({'2_Right'},length(input_sdf_right_A),1)];

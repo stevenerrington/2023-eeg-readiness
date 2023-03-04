@@ -5,6 +5,8 @@ nostop_speed_trls = get_rtspeed_trls(executiveBeh);
 % Initialize the arrays
 clear EEG_saccade_*
 
+alignment = 'saccade';
+
 % For each session
 for session_i = 1:29
     % Find the lateral channels
@@ -13,10 +15,10 @@ for session_i = 1:29
         channel = channel_list{ch_index};
 
         % Get the corresponding EEG ERP for left/right, slow and fast
-        EEG_saccade_left_fast{ch_index}(session_i,:) = nanmean( EEG_signal.saccade{session_i,ch_index}(nostop_speed_trls{session_i}.fast.left,:));
-        EEG_saccade_left_slow{ch_index}(session_i,:) = nanmean( EEG_signal.saccade{session_i,ch_index}(nostop_speed_trls{session_i}.slow.left,:));
-        EEG_saccade_right_fast{ch_index}(session_i,:) = nanmean( EEG_signal.saccade{session_i,ch_index}(nostop_speed_trls{session_i}.fast.right,:));
-        EEG_saccade_right_slow{ch_index}(session_i,:) = nanmean( EEG_signal.saccade{session_i,ch_index}(nostop_speed_trls{session_i}.slow.right,:));
+        EEG_saccade_left_fast{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(nostop_speed_trls{session_i}.fast.left,:));
+        EEG_saccade_left_slow{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(nostop_speed_trls{session_i}.slow.left,:));
+        EEG_saccade_right_fast{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(nostop_speed_trls{session_i}.fast.right,:));
+        EEG_saccade_right_slow{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(nostop_speed_trls{session_i}.slow.right,:));
 
     end
 end

@@ -26,6 +26,10 @@ params.eventNames = {'fixate','target','stopSignal','saccade','sacc_end','tone',
 %% Extract: Convert raw EEG data into trial-by-trial event-related potentials.
 extract_signal
 
+%% Analyse: Show saccade production metrics
+describe_example_eyePos
+
+
 %% Analyse: Get ERP for left/rightward saccades, for lateralized channels.
 describe_rp_saccade
 describe_rp_target
@@ -43,3 +47,11 @@ describe_rt_analyses
 %% Analyse: Get ERP for low and high value
 % Peak of target align and saccade align
 describe_value_analyses
+
+%% Analyse: Find ITI saccades < IN PROGRESS.
+find_iti_saccades
+
+
+
+
+

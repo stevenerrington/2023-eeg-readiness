@@ -1,8 +1,5 @@
 function  [PerTrialLFP] = align_signal(LFP, TrialSubset, TrialEventTimes_all, AlignWith, Win)
 
-% The SDF here can either be spike density function OR LFPs! doesn't
-% matter!! 
-
 Win = [Win(1)+1 Win(2)];
 PerTrialLFP = zeros(length(TrialSubset),range(Win)+1);
 
@@ -19,7 +16,6 @@ PerTrialLFP = zeros(length(TrialSubset),range(Win)+1);
         
     end
     
-    PerTrialLFP = PerTrialLFP * 1000;
     
 end
 
