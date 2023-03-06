@@ -36,7 +36,7 @@ input_sdf_right_high = num2cell(plot_EEG_AD03_high, 2);
 input_sdf_right_low = num2cell(plot_EEG_AD03_low, 2);
 
 xlim_input = [-600 200];
-ylim_input = [-7.5 7.5];
+ylim_input = [-0.075 0.075];
 timewins.sdf = -999:2000;
 
 labels_value = [repmat({'1_high'},length(input_sdf_left_high),1);repmat({'2_low'},length(input_sdf_left_low),1)];
@@ -54,7 +54,7 @@ saccade_erp_value(1,1).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 
 saccade_erp_value(2,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_high;input_sdf_left_low],'color',labels_value);
 saccade_erp_value(2,1).stat_summary();
-saccade_erp_value(2,1).axe_property('XLim',xlim_input,'YLim',[-10 10]);
+saccade_erp_value(2,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
 saccade_erp_value(2,1).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 saccade_erp_value(2,1).facet_grid([],monkey_label);
 
@@ -65,7 +65,7 @@ saccade_erp_value(1,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 
 saccade_erp_value(2,2)=gramm('x',timewins.sdf,'y',[input_sdf_right_high;input_sdf_right_low],'color',labels_value);
 saccade_erp_value(2,2).stat_summary();
-saccade_erp_value(2,2).axe_property('XLim',xlim_input,'YLim',[-10 10]);
+saccade_erp_value(2,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
 saccade_erp_value(2,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 saccade_erp_value(2,2).facet_grid([],monkey_label);
 

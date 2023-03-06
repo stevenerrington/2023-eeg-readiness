@@ -6,7 +6,7 @@ EEG_saccade_right = [];
 % For each session
 for session = 1:29
     % Find the lateral channels
-    for ch_index = 2:3
+    for ch_index = 1:4
 
         channel = channel_list{ch_index};
 
@@ -28,6 +28,12 @@ for session = 1:29
 
     plot_EEG_left_B(session,:)  = EEG_saccade_left{3}(session,:);
     plot_EEG_right_B(session,:) = EEG_saccade_right{3}(session,:);
+    
+    plot_EEG_left_C(session,:)  = EEG_saccade_left{1}(session,:);
+    plot_EEG_right_C(session,:) = EEG_saccade_right{1}(session,:);
+    
+    plot_EEG_left_D(session,:)  = EEG_saccade_left{4}(session,:);
+    plot_EEG_right_D(session,:) = EEG_saccade_right{4}(session,:);
 
 end
 
@@ -35,6 +41,10 @@ input_sdf_left_A = num2cell(plot_EEG_left_A, 2);
 input_sdf_right_A = num2cell(plot_EEG_right_A, 2);
 input_sdf_left_B = num2cell(plot_EEG_left_B, 2);
 input_sdf_right_B = num2cell(plot_EEG_right_B, 2);
+input_sdf_left_C = num2cell(plot_EEG_left_C, 2);
+input_sdf_right_C = num2cell(plot_EEG_right_C, 2);
+input_sdf_left_D = num2cell(plot_EEG_left_D, 2);
+input_sdf_right_D = num2cell(plot_EEG_right_D, 2);
 
 xlim_input = [-600 200];
 ylim_input = [-0.01 0.02];
@@ -44,30 +54,28 @@ labels_value = [repmat({'1_Left'},length(input_sdf_left_A),1);repmat({'2_Right'}
 monkey_label = [repmat(executiveBeh.nhpSessions.monkeyNameLabel,2,1)];
 
 % Produce the figure, collapsed across all monkeys
-time_electrode_AUC(1,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
-time_electrode_AUC(1,1).stat_summary();
-time_electrode_AUC(1,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(1,1).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
+rp_grandaverage_erp(1,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_C;input_sdf_right_C],'color',labels_value);
+rp_grandaverage_erp(1,2).stat_summary();
+rp_grandaverage_erp(1,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_grandaverage_erp(1,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 
-time_electrode_AUC(2,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
-time_electrode_AUC(2,1).stat_summary();
-time_electrode_AUC(2,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(2,1).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
-time_electrode_AUC(2,1).facet_grid([],monkey_label);
+rp_grandaverage_erp(2,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
+rp_grandaverage_erp(2,1).stat_summary();
+rp_grandaverage_erp(2,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_grandaverage_erp(2,1).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 
-time_electrode_AUC(1,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
-time_electrode_AUC(1,2).stat_summary();
-time_electrode_AUC(1,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(1,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
+rp_grandaverage_erp(2,3)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
+rp_grandaverage_erp(2,3).stat_summary();
+rp_grandaverage_erp(2,3).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_grandaverage_erp(2,3).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 
-time_electrode_AUC(2,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
-time_electrode_AUC(2,2).stat_summary();
-time_electrode_AUC(2,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(2,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
-time_electrode_AUC(2,2).facet_grid([],monkey_label);
+rp_grandaverage_erp(3,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_D;input_sdf_right_D],'color',labels_value);
+rp_grandaverage_erp(3,2).stat_summary();
+rp_grandaverage_erp(3,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_grandaverage_erp(3,2).set_names('x','Time from Saccade (ms)','y','EEG (uV)');
 
-RP_A_figure_out = figure('Renderer', 'painters', 'Position', [100 100 800 400]);
-time_electrode_AUC.draw();
+RP_A_figure_out = figure('Renderer', 'painters', 'Position', [100 100 1200 800]);
+rp_grandaverage_erp.draw();
 
 % Once we're done with a page, save it and close it.
 filename = fullfile(dirs.root,'results','pop_figure_rp.pdf');

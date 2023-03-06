@@ -2,12 +2,12 @@
 %% Extract: find saccades within the inter-trial interval matching a given criteria.
 
 % Criteria ----------------
-sacc_amp_cutoff = 10;
+sacc_amp_cutoff = 15;
 sacc_dir_range_right = [320 45];
 sacc_dir_range_left = [135 225];
     
 % Extraction ---------------
-if exist('ttx_iti_saccade')
+if exist(fullfile(dirs.root,'data','ttx_iti_saccade.mat')) == 2
     load(fullfile(dirs.root,'data','ttx_iti_saccade.mat'));
 else
     ttx_itiSaccade = [];
@@ -35,17 +35,23 @@ else
                 (data_in.SaccDirection(trl_i,:) > sacc_dir_range_right(1) | ... ... % Greater than a given amplitude
                 data_in.SaccDirection(trl_i,:) < sacc_dir_range_right(2))),1);
             
+           
+
             % And output their details
             if ~isempty(iti_sacc_flag)
                 iti_saccade_time(trl_i,1) = trl_i;
                 iti_saccade_time(trl_i,2) = data_in.SaccBegin(trl_i,iti_sacc_flag)+data_in.TrialStart_(trl_i);
                 iti_saccade_time(trl_i,3) = data_in.SaccDirection(trl_i,iti_sacc_flag);
                 iti_saccade_time(trl_i,4) = data_in.SaccAmplitude(trl_i,iti_sacc_flag);
+                iti_saccade_time(trl_i,5) = data_in.SaccBegin(trl_i,iti_sacc_flag-1)+data_in.TrialStart_(trl_i);
+                
             else
                 iti_saccade_time(trl_i,1) = trl_i;
                 iti_saccade_time(trl_i,2) = NaN;
                 iti_saccade_time(trl_i,3) = NaN;
                 iti_saccade_time(trl_i,4) = NaN;
+                iti_saccade_time(trl_i,5) = NaN;
+
             end
             
         end
@@ -118,7 +124,6 @@ end
 
 
 %% Analyse: get ITI eye position figure
-
 % Define example session
 session_i = 1;
 
@@ -150,11 +155,16 @@ for trl_i = 1:length(lr_iti_trials)
     trl_n = lr_iti_trials(trl_i);
 
     % And get the eye position 50 ms after the saccade started
-    x_start(trl_i,1) = aligned_eyeX(trl_n,1000-10);
+    x_start(trl_i,1) = aligned_eyeX(trl_n,1000-10)-aligned_eyeX(trl_n,1000-10);
     x_end(trl_i,1) = aligned_eyeX(trl_n,1000+10);
-    y_start(trl_i,1) = aligned_eyeY(trl_n,1000-10);
+    y_start(trl_i,1) = aligned_eyeY(trl_n,1000-10)-aligned_eyeY(trl_n,1000-10);
     y_end(trl_i,1) = aligned_eyeY(trl_n,1000+10);
+end
 
+    
+for trl_i = 1:length(eventTimes)
+    aligned_eyeX_centered(trl_i,:) = aligned_eyeX(trl_i,:)-nanmean(aligned_eyeX(trl_i,[850:950]));
+    aligned_eyeY_centered(trl_i,:) = aligned_eyeY(trl_i,:)-nanmean(aligned_eyeY(trl_i,[850:950]));
 end
 
 
@@ -167,19 +177,19 @@ y_lim_posWindow = [-10 10];
 
 % Create figure window
 saccade_pos_figure = figure('Renderer', 'painters', 'Position', [100 100 300 600]);
-
+session_i = 1;
 % Plot: trial-by-trial x-position
 subplot(2,1,1); hold on
-plot(aligned_eyeX(ttx_iti_saccade.left{session_i},:),-999:2000,'color',[colormap(1,:) 0.5])
+plot(aligned_eyeX_centered(ttx_iti_saccade.left{session_i},:),-999:2000,'color',[colormap(1,:) 0.5])
 hold on
-plot(aligned_eyeX(ttx_iti_saccade.right{session_i},:),-999:2000,'color',[colormap(2,:) 0.5])
+plot(aligned_eyeX_centered(ttx_iti_saccade.right{session_i},:),-999:2000,'color',[colormap(2,:) 0.5])
 ylim(time_window); xlim(x_lim_posWindow); set(gca,'YDir','Reverse')
 grid on; box off; set(gca,'TickDir','out')
 
 % Plot: trial-by-trial final saccade position
 subplot(2,1,2); hold on
 for trl_i = 1:length(lr_iti_trials)
-    if x_start(trl_i) > 0
+    if x_end(trl_i) > 0
         color_i = [colormap(1,:) 0.5];
     else
         color_i = [colormap(2,:) 0.5];
@@ -187,12 +197,24 @@ for trl_i = 1:length(lr_iti_trials)
     
     line([x_start(trl_i,1) x_end(trl_i,1)], [y_start(trl_i,1) y_end(trl_i,1)],'color',color_i);
     scatter(x_end(trl_i,1),y_end(trl_i,1),0.5,'k+');
-%     
-%     line([0 x_end(trl_i,1)-x_start(trl_i,1)], [0 y_end(trl_i,1)-y_start(trl_i,1)],'color',color_i);
-%     scatter(x_end(trl_i,1)-x_start(trl_i,1),y_end(trl_i,1)-y_start(trl_i,1),0.5,'k+');
+
 end
 xlim(x_lim_posWindow); ylim(y_lim_posWindow)
 grid on; box off; set(gca,'TickDir','out');
+
+%% Export: save figure
+% Once we're done with a page, save it and close it.
+filename = fullfile(dirs.root,'results','saccade_pos_figure_iti.pdf');
+set(saccade_pos_figure,'PaperSize',[20 10]); %set the paper size to what you want
+print(saccade_pos_figure,filename,'-dpdf') % then print it
+close(saccade_pos_figure)
+
+
+%% Analysis: inter-saccade interval
+
+left_iti_saccade_RT = ttx_itiSaccade{session_i}(ttx_iti_saccade.left{session_i},2)-ttx_itiSaccade{session_i}(ttx_iti_saccade.left{session_i},5);
+right_iti_saccade_RT = ttx_itiSaccade{session_i}(ttx_iti_saccade.right{session_i},2)-ttx_itiSaccade{session_i}(ttx_iti_saccade.right{session_i},5);
+
 
 
 %% Analyse: Extract ERP for left and right ITI saccades
@@ -215,7 +237,6 @@ for session_i = 1:29
 
     end
 end
-
 
 %% Figure: Saccade-aligned Population EEG for left/right target
 
@@ -265,3 +286,10 @@ iti_saccade_erp(2,2).facet_grid([],monkey_label);
 
 iti_saccade_erp_out = figure('Renderer', 'painters', 'Position', [100 100 800 400]);
 iti_saccade_erp.draw();
+
+%% Export: save figure
+% Once we're done with a page, save it and close it.
+filename = fullfile(dirs.root,'results','iti_saccade_erp_out.pdf');
+set(iti_saccade_erp_out,'PaperSize',[20 10]); %set the paper size to what you want
+print(iti_saccade_erp_out,filename,'-dpdf') % then print it
+close(iti_saccade_erp_out)

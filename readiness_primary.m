@@ -29,7 +29,6 @@ extract_signal
 %% Analyse: Show saccade production metrics
 describe_example_eyePos
 
-
 %% Analyse: Get ERP for left/rightward saccades, for lateralized channels.
 describe_rp_saccade
 describe_rp_target

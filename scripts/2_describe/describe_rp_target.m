@@ -38,37 +38,37 @@ input_sdf_left_B = num2cell(plot_EEG_left_B, 2);
 input_sdf_right_B = num2cell(plot_EEG_right_B, 2);
 
 xlim_input = [-200 600];
-ylim_input = [-10 10];
+ylim_input = [-0.010 0.010];
 timewins.sdf = -999:2000;
 
 labels_value = [repmat({'1_Left'},length(input_sdf_left_A),1);repmat({'2_Right'},length(input_sdf_right_A),1)];
 monkey_label = [repmat(executiveBeh.nhpSessions.monkeyNameLabel,2,1)];
 
 % Produce the figure, collapsed across all monkeys
-time_electrode_AUC(1,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
-time_electrode_AUC(1,1).stat_summary();
-time_electrode_AUC(1,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(1,1).set_names('x','Time from Target (ms)','y','EEG (uV)');
+rp_erp_target(1,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
+rp_erp_target(1,1).stat_summary();
+rp_erp_target(1,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_erp_target(1,1).set_names('x','Time from Target (ms)','y','EEG (uV)');
 
-time_electrode_AUC(2,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
-time_electrode_AUC(2,1).stat_summary();
-time_electrode_AUC(2,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(2,1).set_names('x','Time from Target (ms)','y','EEG (uV)');
-time_electrode_AUC(2,1).facet_grid([],monkey_label);
+rp_erp_target(2,1)=gramm('x',timewins.sdf,'y',[input_sdf_left_A;input_sdf_right_A],'color',labels_value);
+rp_erp_target(2,1).stat_summary();
+rp_erp_target(2,1).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_erp_target(2,1).set_names('x','Time from Target (ms)','y','EEG (uV)');
+rp_erp_target(2,1).facet_grid([],monkey_label);
 
-time_electrode_AUC(1,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
-time_electrode_AUC(1,2).stat_summary();
-time_electrode_AUC(1,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(1,2).set_names('x','Time from Target (ms)','y','EEG (uV)');
+rp_erp_target(1,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
+rp_erp_target(1,2).stat_summary();
+rp_erp_target(1,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_erp_target(1,2).set_names('x','Time from Target (ms)','y','EEG (uV)');
 
-time_electrode_AUC(2,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
-time_electrode_AUC(2,2).stat_summary();
-time_electrode_AUC(2,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
-time_electrode_AUC(2,2).set_names('x','Time from Target (ms)','y','EEG (uV)');
-time_electrode_AUC(2,2).facet_grid([],monkey_label);
+rp_erp_target(2,2)=gramm('x',timewins.sdf,'y',[input_sdf_left_B;input_sdf_right_B],'color',labels_value);
+rp_erp_target(2,2).stat_summary();
+rp_erp_target(2,2).axe_property('XLim',xlim_input,'YLim',ylim_input);
+rp_erp_target(2,2).set_names('x','Time from Target (ms)','y','EEG (uV)');
+rp_erp_target(2,2).facet_grid([],monkey_label);
 
 RP_A_figure_out = figure('Renderer', 'painters', 'Position', [100 100 1500 800]);
-time_electrode_AUC.draw();
+rp_erp_target.draw();
 
 %%
 % Once we're done with a page, save it and close it.
