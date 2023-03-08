@@ -215,8 +215,6 @@ close(saccade_pos_figure)
 left_iti_saccade_RT = ttx_itiSaccade{session_i}(ttx_iti_saccade.left{session_i},2)-ttx_itiSaccade{session_i}(ttx_iti_saccade.left{session_i},5);
 right_iti_saccade_RT = ttx_itiSaccade{session_i}(ttx_iti_saccade.right{session_i},2)-ttx_itiSaccade{session_i}(ttx_iti_saccade.right{session_i},5);
 
-
-
 %% Analyse: Extract ERP for left and right ITI saccades
 % Initialize the arrays
 EEG_saccade_left_iti = [];
@@ -252,7 +250,7 @@ input_sdf_left_B = num2cell(plot_EEG_left_B, 2);
 input_sdf_right_B = num2cell(plot_EEG_right_B, 2);
 
 xlim_input = [-600 200];
-ylim_input = [-0.01 0.02];
+ylim_input = [-0.025 0.025];
 timewins.sdf = -999:2000;
 
 labels_value = [repmat({'1_Left'},length(input_sdf_left_A),1);repmat({'2_Right'},length(input_sdf_right_A),1)];

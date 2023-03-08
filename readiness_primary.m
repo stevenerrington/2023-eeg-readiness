@@ -29,6 +29,9 @@ extract_signal
 %% Analyse: Show saccade production metrics
 describe_example_eyePos
 
+%% Analyse: produce race model figures
+describe_stop_beh
+
 %% Analyse: Get ERP for left/rightward saccades, for lateralized channels.
 describe_rp_saccade
 describe_rp_target
@@ -47,8 +50,9 @@ describe_rt_analyses
 % Peak of target align and saccade align
 describe_value_analyses
 
-%% Analyse: Find ITI saccades < IN PROGRESS.
-find_iti_saccades
+%% Analyse: Test whether signal is goal specific or not
+extract_iti_saccade
+compare_goal_nongoal_amp
 
 
 

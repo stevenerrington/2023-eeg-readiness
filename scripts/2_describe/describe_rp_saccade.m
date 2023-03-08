@@ -169,4 +169,39 @@ close(example_session_heatmap)
 
 clear session_rt left_rt* right_rt* trl_norm_erp
 
+%% Analyse: Extract mean ERP amplitude for left and right no-stop trials
+% Set parameters
+analysis_window = [-100:0];
 
+for session_i = 1:29
+    mean_EEG_left_AD02(session_i,1)  = nanmean(EEG_saccade_left{2}(session_i,analysis_window+1000));
+    mean_EEG_right_AD02(session_i,1) = nanmean(EEG_saccade_right{2}(session_i,analysis_window+1000));
+
+    mean_EEG_left_AD03(session_i,1)  = nanmean(EEG_saccade_left{3}(session_i,analysis_window+1000));
+    mean_EEG_right_AD03(session_i,1) = nanmean(EEG_saccade_right{3}(session_i,analysis_window+1000));
+        
+end
+
+%% Figure: Bar chart of mean amplitudes
+
+% Data organization
+data_in = [];
+data_in = [mean_EEG_left_AD02; mean_EEG_right_AD03; mean_EEG_right_AD02; mean_EEG_left_AD03];
+electrode_label = [repmat({'1_AD02'},29,1); repmat({'2_AD03'},29,1); repmat({'1_AD02'},29,1); repmat({'2_AD03'},29,1)] ;
+saccade_label = [repmat({'1_left'},29,1); repmat({'2_right'},29,1); repmat({'2_right'},29,1); repmat({'1_left'},29,1)] ;
+
+% GRAMM Setup
+mean_electrode_amplitude(1,1) = gramm('x',electrode_label,'y',data_in,'color',saccade_label);
+mean_electrode_amplitude(1,1).stat_summary('geom',{'edge_bar','black_errorbar'},'dodge',0.5); 
+mean_electrode_amplitude(1,1).geom_jitter('alpha',0.2,'dodge',0.5);
+mean_electrode_amplitude(1,1).geom_hline('yintercept',0);
+
+% Figure generation
+mean_electrode_amplitude_out = figure('Renderer', 'painters', 'Position', [100 100 300 300]);
+mean_electrode_amplitude.draw();
+
+% Once we're done with a page, save it and close it.
+filename = fullfile(dirs.root,'results','mean_electrode_amplitude.pdf');
+set(mean_electrode_amplitude_out,'PaperSize',[20 10]); %set the paper size to what you want
+print(mean_electrode_amplitude_out,filename,'-dpdf') % then print it
+close(mean_electrode_amplitude_out)
