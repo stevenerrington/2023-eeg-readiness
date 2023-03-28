@@ -26,6 +26,9 @@ params.eventNames = {'fixate','target','stopSignal','saccade','sacc_end','tone',
 %% Extract: Convert raw EEG data into trial-by-trial event-related potentials.
 extract_signal
 
+%% Analyse: Saccade RT for left and right targets
+describe_rt_leftright
+
 %% Analyse: Show saccade production metrics
 describe_example_eyePos
 

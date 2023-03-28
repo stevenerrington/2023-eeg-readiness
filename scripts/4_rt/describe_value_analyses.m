@@ -12,10 +12,10 @@ for session_i = 1:29
         channel = channel_list{ch_index};
 
         % Get the corresponding EEG ERP for left/right, low and high
-        EEG_saccade_left_high{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(executiveBeh.ttx.GO_Left_H{session_i},:));
-        EEG_saccade_left_low{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(executiveBeh.ttx.GO_Left_L{session_i},:));
-        EEG_saccade_right_high{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(executiveBeh.ttx.GO_Right_H{session_i},:));
-        EEG_saccade_right_low{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(executiveBeh.ttx.GO_Right_L{session_i},:));
+        EEG_saccade_left_high{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(ttx_matched.left_H{session_i},:));
+        EEG_saccade_left_low{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(ttx_matched.left_L{session_i},:));
+        EEG_saccade_right_high{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(ttx_matched.right_H{session_i},:));
+        EEG_saccade_right_low{ch_index}(session_i,:) = nanmean( EEG_signal.(alignment){session_i,ch_index}(ttx_matched.right_L{session_i},:));
 
     end
 end

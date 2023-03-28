@@ -2,7 +2,7 @@
 % Initialize the arrays
 EEG_saccade_left = [];
 EEG_saccade_right = [];
-
+clear colormap
 % For each session
 for session = 1:29
     % Find the lateral channels
@@ -10,11 +10,11 @@ for session = 1:29
 
         channel = channel_list{ch_index};
 
-        EEG_target_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Left{session},:));
-        EEG_target_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Right{session},:));
+        EEG_target_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(ttx_matched.left{session},:));
+        EEG_target_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(ttx_matched.right{session},:));
 
-        EEG_saccade_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Left{session},:));
-        EEG_saccade_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Right{session},:));
+        EEG_saccade_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(ttx_matched.left{session},:));
+        EEG_saccade_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(ttx_matched.right{session},:));
 
     end
 end
@@ -97,65 +97,65 @@ plot_window = [-600:200];
 
 session_rt = executiveBeh.TrialEventTimes_Overall{example_session_i}(:,4)-...
     executiveBeh.TrialEventTimes_Overall{example_session_i}(:,2);
-left_rt = session_rt(executiveBeh.ttx.GO_Left{example_session_i});
-right_rt = session_rt(executiveBeh.ttx.GO_Right{example_session_i});
+left_rt = session_rt(ttx_matched.left{example_session_i});
+right_rt = session_rt(ttx_matched.right{example_session_i});
 
 [~,left_rt_order] = sort(left_rt,'ascend');
 [~,right_rt_order] = sort(right_rt,'ascend');
 
 trl_norm_erp.AD02.Left = maxnorm_trl_signal(...
-    EEG_signal.saccade{example_session_i,2}(executiveBeh.ttx.GO_Left{example_session_i},:),...
+    EEG_signal.saccade{example_session_i,2}(ttx_matched.left{example_session_i},:),...
     norm_window+1000);
 trl_norm_erp.AD02.Right = maxnorm_trl_signal(...
-    EEG_signal.saccade{example_session_i,2}(executiveBeh.ttx.GO_Right{example_session_i},:),...
+    EEG_signal.saccade{example_session_i,2}(ttx_matched.right{example_session_i},:),...
     norm_window+1000);
 trl_norm_erp.AD03.Left = maxnorm_trl_signal(...
-    EEG_signal.saccade{example_session_i,3}(executiveBeh.ttx.GO_Left{example_session_i},:),...
+    EEG_signal.saccade{example_session_i,3}(ttx_matched.left{example_session_i},:),...
     norm_window+1000);
 trl_norm_erp.AD03.Right = maxnorm_trl_signal(...
-    EEG_signal.saccade{example_session_i,3}(executiveBeh.ttx.GO_Right{example_session_i},:),...
+    EEG_signal.saccade{example_session_i,3}(ttx_matched.right{example_session_i},:),...
     norm_window+1000);
 
 example_session_heatmap = figure('Renderer', 'painters', 'Position', [100 100 1200 800]);
 subplot(2,2,1); hold on
 imagesc('XData',plot_window,...
-    'YData',1:length(executiveBeh.ttx.GO_Left{example_session_i}),...
+    'YData',1:length(ttx_matched.left{example_session_i}),...
     'CData',trl_norm_erp.AD02.Left(left_rt_order,plot_window+1000))
-plot(-left_rt(left_rt_order),1:length(executiveBeh.ttx.GO_Left{example_session_i}),'k','LineWidth',2)
+plot(-left_rt(left_rt_order),1:length(ttx_matched.left{example_session_i}),'k','LineWidth',2)
 vline(0,'k')
-xlim([plot_window(1) plot_window(end)]); ylim([1 length(executiveBeh.ttx.GO_Left{example_session_i})])
+xlim([plot_window(1) plot_window(end)]); ylim([1 length(ttx_matched.left{example_session_i})])
 colormap(red_blue); caxis([-1 1])
 ylabel('Left saccade trials'); title('AD02')
 colorbar('EastOutside')
 
 subplot(2,2,2); hold on
 imagesc('XData',plot_window,...
-    'YData',1:length(executiveBeh.ttx.GO_Left{example_session_i}),...
+    'YData',1:length(ttx_matched.left{example_session_i}),...
     'CData',trl_norm_erp.AD03.Left(left_rt_order,plot_window+1000))
-plot(-left_rt(left_rt_order),1:length(executiveBeh.ttx.GO_Left{example_session_i}),'k','LineWidth',2)
+plot(-left_rt(left_rt_order),1:length(ttx_matched.left{example_session_i}),'k','LineWidth',2)
 vline(0,'k')
-xlim([plot_window(1) plot_window(end)]); ylim([1 length(executiveBeh.ttx.GO_Left{example_session_i})])
+xlim([plot_window(1) plot_window(end)]); ylim([1 length(ttx_matched.left{example_session_i})])
 colormap(red_blue); caxis([-1 1]); title('AD03')
 colorbar('EastOutside')
 
 subplot(2,2,3); hold on
 imagesc('XData',plot_window,...
-    'YData',1:length(executiveBeh.ttx.GO_Right{example_session_i}),...
+    'YData',1:length(ttx_matched.right{example_session_i}),...
     'CData',trl_norm_erp.AD02.Right(right_rt_order,plot_window+1000))
-plot(-right_rt(right_rt_order),1:length(executiveBeh.ttx.GO_Right{example_session_i}),'k','LineWidth',2)
+plot(-right_rt(right_rt_order),1:length(ttx_matched.right{example_session_i}),'k','LineWidth',2)
 vline(0,'k')
-xlim([plot_window(1) plot_window(end)]); ylim([1 length(executiveBeh.ttx.GO_Right{example_session_i})])
+xlim([plot_window(1) plot_window(end)]); ylim([1 length(ttx_matched.right{example_session_i})])
 colormap(red_blue); caxis([-1 1])
 xlabel('Time from Saccade (ms)'); ylabel('Right saccade trials')
 colorbar('EastOutside')
 
 subplot(2,2,4); hold on
 imagesc('XData',plot_window,...
-    'YData',1:length(executiveBeh.ttx.GO_Right{example_session_i}),...
+    'YData',1:length(ttx_matched.right{example_session_i}),...
     'CData',trl_norm_erp.AD03.Right(right_rt_order,plot_window+1000))
-plot(-right_rt(right_rt_order),1:length(executiveBeh.ttx.GO_Right{example_session_i}),'k','LineWidth',2)
+plot(-right_rt(right_rt_order),1:length(ttx_matched.right{example_session_i}),'k','LineWidth',2)
 vline(0,'k')
-xlim([plot_window(1) plot_window(end)]); ylim([1 length(executiveBeh.ttx.GO_Right{example_session_i})])
+xlim([plot_window(1) plot_window(end)]); ylim([1 length(ttx_matched.right{example_session_i})])
 colormap(red_blue); caxis([-1 1])
 xlabel('Time from Saccade (ms)');
 colorbar('EastOutside')

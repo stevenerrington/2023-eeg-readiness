@@ -1,4 +1,7 @@
 %% Analyse: Extract ERP for left and right no-stop trials
+
+ [ttx_canc_lat, ttx_noncanc_lat] = get_canclattrials(executiveBeh);
+
 % For each session
 for session_i = 1:29
     % Find the lateral channels
@@ -66,7 +69,7 @@ input_sdf_AD03_nostop_lm = num2cell(plot_EEG_AD03_nostop_lm, 2);
 
 %% Figure: define parameters
 xlim_input = [-200 600];
-ylim_input = [-10 10];
+ylim_input = [-0.010 0.010];
 timewins.sdf = -999:2000;
 
 labels_value = [repmat({'Canceled'},length(input_sdf_AD02_canceled),1);repmat({'Noncanceled'},length(input_sdf_AD02_noncanceled),1)];

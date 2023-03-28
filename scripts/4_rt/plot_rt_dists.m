@@ -6,8 +6,8 @@ for session_i = 1:29
     
     
     RT_left = []; RT_right = [];
-    RT_left = RT_session(executiveBeh.ttx.GO_Left{session_i});
-    RT_right = RT_session(executiveBeh.ttx.GO_Right{session_i});
+    RT_left = RT_session(ttx_matched.left{session_i});
+    RT_right = RT_session(ttx_matched.right{session_i});
     
     rt_quantile_right{session_i,1} = quantile(RT_right,[0.1:0.2:0.9]);
     rt_quantile_left{session_i,1} = quantile(RT_left,[0.1:0.2:0.9]);

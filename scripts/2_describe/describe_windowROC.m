@@ -4,11 +4,11 @@ for session_i = 1:29
     timewin = [-100:0]+1000;
 
     clear signal_AD*
-    signal_AD02_left = nanmean(EEG_signal.saccade{session_i,2}(executiveBeh.ttx.GO_Left{session_i},timewin),2);
-    signal_AD02_right = nanmean(EEG_signal.saccade{session_i,2}(executiveBeh.ttx.GO_Right{session_i},timewin),2);
+    signal_AD02_left = nanmean(EEG_signal.saccade{session_i,2}(ttx_matched.left{session_i},timewin),2);
+    signal_AD02_right = nanmean(EEG_signal.saccade{session_i,2}(ttx_matched.right{session_i},timewin),2);
 
-    signal_AD03_left = nanmean(EEG_signal.saccade{session_i,3}(executiveBeh.ttx.GO_Left{session_i},timewin),2);
-    signal_AD03_right = nanmean(EEG_signal.saccade{session_i,3}(executiveBeh.ttx.GO_Right{session_i},timewin),2);
+    signal_AD03_left = nanmean(EEG_signal.saccade{session_i,3}(ttx_matched.left{session_i},timewin),2);
+    signal_AD03_right = nanmean(EEG_signal.saccade{session_i,3}(ttx_matched.right{session_i},timewin),2);
 
     clear ROC_temp*
     ROC_temp_AD02 = roc_curve(signal_AD02_right, signal_AD02_left);

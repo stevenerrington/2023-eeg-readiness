@@ -8,8 +8,8 @@ clear rt_trials session_rt left_rt* right_rt* rt_trials
 
 session_rt = executiveBeh.TrialEventTimes_Overall{session_i}(:,4)-...
     executiveBeh.TrialEventTimes_Overall{session_i}(:,2);
-left_rt = session_rt(executiveBeh.ttx.GO_Left{session_i});
-right_rt = session_rt(executiveBeh.ttx.GO_Right{session_i});
+left_rt = session_rt(ttx_matched.left{session_i});
+right_rt = session_rt(ttx_matched.right{session_i});
 
 [~,left_rt_order] = sort(left_rt,'ascend');
 [~,right_rt_order] = sort(right_rt,'ascend');
@@ -17,12 +17,12 @@ right_rt = session_rt(executiveBeh.ttx.GO_Right{session_i});
 [~,~,left_rt_bin] = histcounts(left_rt,3);
 [~,~,right_rt_bin] = histcounts(right_rt,3);
 
-rt_trials.left.fast = executiveBeh.ttx.GO_Left{session_i}(left_rt_bin == 1);
-rt_trials.left.mid = executiveBeh.ttx.GO_Left{session_i}(left_rt_bin == 2);
-rt_trials.left.slow = executiveBeh.ttx.GO_Left{session_i}(left_rt_bin == 3);
-rt_trials.right.fast = executiveBeh.ttx.GO_Right{session_i}(right_rt_bin == 1);
-rt_trials.right.mid = executiveBeh.ttx.GO_Right{session_i}(right_rt_bin == 2);
-rt_trials.right.slow = executiveBeh.ttx.GO_Right{session_i}(right_rt_bin == 3);
+rt_trials.left.fast = ttx_matched.left{session_i}(left_rt_bin == 1);
+rt_trials.left.mid = ttx_matched.left{session_i}(left_rt_bin == 2);
+rt_trials.left.slow = ttx_matched.left{session_i}(left_rt_bin == 3);
+rt_trials.right.fast = ttx_matched.right{session_i}(right_rt_bin == 1);
+rt_trials.right.mid = ttx_matched.right{session_i}(right_rt_bin == 2);
+rt_trials.right.slow = ttx_matched.right{session_i}(right_rt_bin == 3);
 
 test_fast_ADO2(session_i,:) = nanmean(EEG_signal.target{session_i,2}(rt_trials.left.fast,:));
 test_mid_AD02(session_i,:) = nanmean(EEG_signal.target{session_i,2}(rt_trials.left.mid,:));

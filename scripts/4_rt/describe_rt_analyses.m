@@ -1,5 +1,5 @@
 %% Extract: Get slow and fast trials
-nostop_speed_trls = get_rtspeed_trls(executiveBeh);
+nostop_speed_trls = get_rtspeed_trls(executiveBeh,ttx_matched);
 
 %% Analyse: Extract ERP for left and right no-stop trials
 % Initialize the arrays
@@ -39,7 +39,7 @@ input_sdf_right_fast = num2cell(plot_EEG_AD03_fast, 2);
 input_sdf_right_slow = num2cell(plot_EEG_AD03_slow, 2);
 
 xlim_input = [-400 200];
-ylim_input = [-10 10];
+ylim_input = [-0.010 0.010];
 timewins.sdf = -999:2000;
 
 labels_value = [repmat({'1_Fast'},length(input_sdf_left_fast),1);repmat({'2_Slow'},length(input_sdf_left_slow),1)];

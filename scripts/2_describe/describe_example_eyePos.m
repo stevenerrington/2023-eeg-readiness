@@ -22,7 +22,7 @@ aligned_eyeY = align_signal(data_in.EyeY_,...
     eventTimes, alignmentParameters.eventN, alignmentParameters.alignWin);
 
 % Collapse NS trials for left and rightward saccades
-lr_ns_trials = [executiveBeh.ttx.GO_Left{session_i};executiveBeh.ttx.GO_Right{session_i}];
+lr_ns_trials = [ttx_matched.left{session_i};ttx_matched.right{session_i}];
 
 % For each saccade trial
 for trl_i = 1:length(lr_ns_trials)
@@ -51,9 +51,9 @@ saccade_pos_figure = figure('Renderer', 'painters', 'Position', [100 100 300 600
 
 % Plot: trial-by-trial x-position
 subplot(2,1,1); hold on
-plot(aligned_eyeX(executiveBeh.ttx.GO_Left{session_i},:),-999:2000,'color',[colormap(1,:) 0.1])
+plot(aligned_eyeX(ttx_matched.left{session_i},:),-999:2000,'color',[colormap(1,:) 0.1])
 hold on
-plot(aligned_eyeX(executiveBeh.ttx.GO_Right{session_i},:),-999:2000,'color',[colormap(2,:) 0.1])
+plot(aligned_eyeX(ttx_matched.right{session_i},:),-999:2000,'color',[colormap(2,:) 0.1])
 ylim(time_window); xlim(x_lim_posWindow); set(gca,'YDir','Reverse')
 grid on; box off; set(gca,'TickDir','out')
 
@@ -78,4 +78,3 @@ filename = fullfile(dirs.root,'results','saccade_pos_figure.pdf');
 set(saccade_pos_figure,'PaperSize',[20 10]); %set the paper size to what you want
 print(saccade_pos_figure,filename,'-dpdf') % then print it
 close(saccade_pos_figure)
-

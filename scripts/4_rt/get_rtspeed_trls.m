@@ -1,11 +1,11 @@
-function nostop_speed_trls = get_rtspeed_trls(executiveBeh)
+function nostop_speed_trls = get_rtspeed_trls(executiveBeh,ttx_matched)
 
 for session_i = 1:29
     RT_nostop_trls_left = [];
-    RT_nostop_trls_left = executiveBeh.ttx.GO_Left{session_i};
+    RT_nostop_trls_left = ttx_matched.left{session_i};
     
     RT_nostop_trls_right = [];
-    RT_nostop_trls_right = executiveBeh.ttx.GO_Right{session_i};
+    RT_nostop_trls_right = ttx_matched.right{session_i};
     
     RT_nostop_left = [];
     RT_nostop_left(:,1) = executiveBeh.TrialEventTimes_Overall{session_i}(RT_nostop_trls_left,4)-...

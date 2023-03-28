@@ -11,11 +11,11 @@ for session = 1:29
 
         channel = channel_list{ch_index};
 
-        EEG_target_left{ch_index}(session,:) = nanmean( EEG_signal.target{session,ch_index}(executiveBeh.ttx.GO_Left{session},:));
-        EEG_target_right{ch_index}(session,:) = nanmean( EEG_signal.target{session,ch_index}(executiveBeh.ttx.GO_Right{session},:));
+        EEG_target_left{ch_index}(session,:) = nanmean( EEG_signal.target{session,ch_index}(ttx_matched.left{session},:));
+        EEG_target_right{ch_index}(session,:) = nanmean( EEG_signal.target{session,ch_index}(ttx_matched.right{session},:));
 
-        EEG_saccade_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Left{session},:));
-        EEG_saccade_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(executiveBeh.ttx.GO_Right{session},:));
+        EEG_saccade_left{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(ttx_matched.left{session},:));
+        EEG_saccade_right{ch_index}(session,:) = nanmean( EEG_signal.saccade{session,ch_index}(ttx_matched.right{session},:));
 
     end
 end
