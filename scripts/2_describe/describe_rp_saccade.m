@@ -192,12 +192,12 @@ saccade_label = [repmat({'1_left'},29,1); repmat({'2_right'},29,1); repmat({'2_r
 
 % GRAMM Setup
 mean_electrode_amplitude(1,1) = gramm('x',electrode_label,'y',data_in,'color',saccade_label);
-mean_electrode_amplitude(1,1).stat_summary('geom',{'edge_bar','black_errorbar'},'dodge',0.5); 
-mean_electrode_amplitude(1,1).geom_jitter('alpha',0.2,'dodge',0.5);
+mean_electrode_amplitude(1,1).geom_jitter('alpha',0.2);
+mean_electrode_amplitude(1,1).stat_summary('geom',{'point','line','errorbar'}); 
 mean_electrode_amplitude(1,1).geom_hline('yintercept',0);
 
 % Figure generation
-mean_electrode_amplitude_out = figure('Renderer', 'painters', 'Position', [100 100 300 300]);
+mean_electrode_amplitude_out = figure('Renderer', 'painters', 'Position', [100 100 400 300]);
 mean_electrode_amplitude.draw();
 
 % Once we're done with a page, save it and close it.
@@ -205,3 +205,17 @@ filename = fullfile(dirs.root,'results','mean_electrode_amplitude.pdf');
 set(mean_electrode_amplitude_out,'PaperSize',[20 10]); %set the paper size to what you want
 print(mean_electrode_amplitude_out,filename,'-dpdf') % then print it
 close(mean_electrode_amplitude_out)
+
+%% Analysis: 2 x 2 repeated measures ANOVA
+anova_table = table...
+    (mean_EEG_left_AD02,mean_EEG_right_AD02,mean_EEG_left_AD03,mean_EEG_right_AD03,...
+    'VariableNames',{'F3_L','F3_R','F4_L','F4_R'});
+
+writetable(anova_table,fullfile(dirs.root,'results','eeg_uv_outtable.csv'),'WriteRowNames',true)
+
+
+% electrode x laterality anova in JASP.
+
+
+
+

@@ -6,7 +6,7 @@ switch user
         dirs.raw_data = '/Volumes/Alpha/data/2012_Cmand_EuX/rawData/';
         
     case 'home'
-        dirs.root = 'D:\projectCode\2023-eeg-readiness\';
+        dirs.root = 'D:\projects\2023-eeg-readiness\';
         dirs.raw_data = 'D:\data\2012_Cmand_EuX\rawData\';
         
     case 'wustl'

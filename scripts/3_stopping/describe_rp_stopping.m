@@ -116,4 +116,45 @@ set(stopsignal_ERP_fig_out,'PaperSize',[20 10]); %set the paper size to what you
 print(stopsignal_ERP_fig_out,filename,'-dpdf') % then print it
 close(stopsignal_ERP_fig_out)
 
+%% Analyse: Extract mean ERP amplitude for left and right no-stop trials
+% Set parameters
+analysis_window = [0:200];
+
+for session_i = 1:29
+    mean_EEG_canc_AD02(session_i,1)  = nanmean(plot_EEG_AD02_canceled_lm(session_i,analysis_window+1000));
+    mean_EEG_nostop_AD02(session_i,1) = nanmean(plot_EEG_AD02_nostop_lm(session_i,analysis_window+1000));
+
+    mean_EEG_canc_AD03(session_i,1)  = nanmean(plot_EEG_AD03_canceled_lm(session_i,analysis_window+1000));
+    mean_EEG_nostop_AD03(session_i,1) = nanmean(plot_EEG_AD03_nostop_lm(session_i,analysis_window+1000)); 
+
+
+
+    mean_EEG_canc_b_AD02(session_i,1)  = nanmean(plot_EEG_AD02_canceled(session_i,analysis_window+1000));
+    mean_EEG_noncanc_AD02(session_i,1) = nanmean(plot_EEG_AD02_noncanceled(session_i,analysis_window+1000));
+
+    mean_EEG_canc_b_AD03(session_i,1)  = nanmean(plot_EEG_AD03_canceled(session_i,analysis_window+1000));
+    mean_EEG_noncanc_AD03(session_i,1) = nanmean(plot_EEG_AD03_noncanceled(session_i,analysis_window+1000)); 
+
+
+end
+
+
+%% Analysis: 2 x 2 repeated measures ANOVA
+anova_table_canc_nostop = table...
+    (mean_EEG_canc_AD02,mean_EEG_nostop_AD02,mean_EEG_canc_AD03,mean_EEG_nostop_AD03,...
+    'VariableNames',{'F3_canc','F3_nostop','F4_canc','F4_nostop'});
+
+anova_table_canc_noncanc = table...
+    (mean_EEG_canc_b_AD02,mean_EEG_noncanc_AD02,mean_EEG_canc_b_AD03,mean_EEG_noncanc_AD03,...
+    'VariableNames',{'F3_canc','F3_noncanc','F4_canc','F4_noncanc'});
+
+
+
+writetable(anova_table_canc_nostop,fullfile(dirs.root,'results','eeg_uv_canc_nostop_outtable.csv'),'WriteRowNames',true)
+writetable(anova_table_canc_noncanc,fullfile(dirs.root,'results','eeg_uv_canc_noncanc_outtable.csv'),'WriteRowNames',true)
+
+
+% electrode x trial type anova in JASP.
+
+
 clear stopsignal_ERP_fig input_sdf_* plot_EEG_*

@@ -58,3 +58,11 @@ filename = fullfile(dirs.root,'results','AUC_ROC_Basic.pdf');
 set(plot_auc_electrode_out,'PaperSize',[20 10]); %set the paper size to what you want
 print(plot_auc_electrode_out,filename,'-dpdf') % then print it
 close(plot_auc_electrode_out)
+
+
+%% Analysis: 
+
+[h, p, ~, stats] = ttest(ROC_analysis.ROC_AD02_auc-0.5);
+[h, p, ~, stats] = ttest(ROC_analysis.ROC_AD03_auc-0.5);
+
+

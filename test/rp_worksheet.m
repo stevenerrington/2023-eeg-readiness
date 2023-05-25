@@ -60,7 +60,7 @@ RP_A_figure.draw();
 
 
 % Once we're done with a page, save it and close it.
-filename = fullfile('D:\projectCode\2023-eeg-readiness','results','pop_figure_rp_go-nc.pdf');
+filename = fullfile('D:\projects\2023-eeg-readiness','results','pop_figure_rp_go-nc.pdf');
 set(RP_A_figure_out,'PaperSize',[20 10]); %set the paper size to what you want
 print(RP_A_figure_out,filename,'-dpdf') % then print it
 close(RP_A_figure_out)

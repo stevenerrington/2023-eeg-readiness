@@ -288,3 +288,51 @@ filename = fullfile(dirs.root,'results','iti_saccade_erp_out.pdf');
 set(iti_saccade_erp_out,'PaperSize',[20 10]); %set the paper size to what you want
 print(iti_saccade_erp_out,filename,'-dpdf') % then print it
 close(iti_saccade_erp_out)
+
+
+%% Analyse: Extract mean ERP amplitude for left and right no-stop trials
+% Set parameters
+analysis_window = [-100:0];
+
+for session_i = 1:29
+    mean_EEG_left_AD02(session_i,1)  = nanmean(plot_EEG_left_A(session_i,analysis_window+1000));
+    mean_EEG_right_AD02(session_i,1) = nanmean(plot_EEG_right_A(session_i,analysis_window+1000));
+
+    mean_EEG_left_AD03(session_i,1)  = nanmean(plot_EEG_left_B(session_i,analysis_window+1000));
+    mean_EEG_right_AD03(session_i,1) = nanmean(plot_EEG_right_B(session_i,analysis_window+1000)); 
+end
+
+
+
+
+
+
+
+
+
+%% Analysis: 2 x 2 repeated measures ANOVA
+anova_table = table...
+    (mean_EEG_left_AD02,mean_EEG_right_AD02,mean_EEG_left_AD03,mean_EEG_right_AD03,...
+    'VariableNames',{'F3_L','F3_R','F4_L','F4_R'});
+
+anova_table([21, 22, 23],:) = [];
+
+writetable(anova_table,fullfile(dirs.root,'results','eeg_uv_nongoal_outtable.csv'),'WriteRowNames',true)
+
+
+% electrode x laterality anova in JASP.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
