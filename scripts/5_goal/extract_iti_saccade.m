@@ -3,7 +3,7 @@
 
 % Criteria ----------------
 sacc_amp_cutoff = 15;
-sacc_dir_range_right = [320 45];
+sacc_dir_range_right = [315 45];
 sacc_dir_range_left = [135 225];
     
 % Extraction ---------------

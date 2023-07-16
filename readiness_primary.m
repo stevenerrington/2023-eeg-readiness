@@ -41,6 +41,9 @@ describe_rp_target
 describe_windowROC
 describe_temporalROC
 
+%% Analyse: look at ERP for slow, medium, and fast saccades
+describe_rp_rt
+
 %% Analyse: Get ERP for stopping
 describe_rp_stopping
 describe_stopping_windowROC
