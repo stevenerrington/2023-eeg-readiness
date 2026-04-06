@@ -4,7 +4,7 @@
 clear all; clc
 
 % Define key directories
-dirs = get_dirs_rp('home');
+dirs = get_dirs_rp('mac');
 
 % Load datafiles
 load(fullfile(dirs.root, 'data' ,'bayesianSSRT')); 
